@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 module.exports = {
-    baseUrl: './',
+    // baseUrl: './',
     runtimeCompiler: true,
     outputDir: 'dist',
     assetsDir: 'assets',
@@ -15,16 +15,22 @@ module.exports = {
             // 为开发环境修改配置...
         }
     },
+    configureWebpack:{
+        externals: {
+            "BMap": "BMap"
+        },
+        resolve:{
+            alias:{
+                'assets':"@/assets",
+                'components':"@/components",
+                'views':"@/views",
+            }
+        }
+    },
     chainWebpack: config => {
         config.resolve.alias
-            .set('@', resolve('src'))
+            // .set('@', resolve('src'))
     },
-    // chainWebpack: (config) => {
-    //     config.resolve.alias
-    //         .set('@', resolve('src/views'))
-    //         .set('$', resolve('src/images'))
-    //         .set('#', resolve('src/components'))
-    // },
     css: {
         extract: true,
         // 开启 CSS source maps?
@@ -36,7 +42,7 @@ module.exports = {
     devServer: { // 设置代理
         hot: true, //热加载
         host: '0.0.0.0', //ip地址
-        port: 8085, //端口
+        port: 9000, //端口
         https: false, //false关闭https，true为开启
         open: true, //自动打开浏览器
         proxy: {
